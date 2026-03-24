@@ -1,5 +1,5 @@
 from nave import Nave
-
+from casilla import Casilla
 
 class Tablero:
     def __init__(self):
@@ -15,23 +15,12 @@ class Tablero:
         sub3 = Nave("U-505", "submarino", 1)
         sub4 = Nave("U-534", "submarino", 1)
 
-        self.casillero = [
-            [None, None, None, None, None, None, None, None, None, None],
-            [None, por1, por1, por1, por1, por1, None, None, None, None],
-            [None, None, None, None, None, None, None, None, None, None],
-            [None, None, None, fra1, None, None, None, None, None, None],
-            [None, None, None, fra1, None, None, sub1, None, None, None],
-            [None, None, None, fra1, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None, None, None],
-            [None, fra2, fra2, fra2, None, None, sub3, None, None, None],
-            [None, None, None, None, None, None, None, None, None, None],
-            [None, fra3, fra3, fra3, None, sub4, None, None, None, sub2]
-        ]
+        self.casillero = [[Casilla() for _ in range(10)] for _ in range(10)]
+        self.casillero[1][1].nave = por1
+        self.casillero[1][2].nave = por1
+        self.casillero[1][3].nave = por1
+
 
     def comprobar_impacto(self, x, y):
-        print("Estoy comprobando el impacto")
-        nave = self.casillero[x][y]
-        if nave is None:
-            return self.AGUA
-        else:
-            return nave.recibir_disparo()
+        casilla = self.casillero[x][y]
+        return casilla.disparar()
